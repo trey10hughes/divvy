@@ -1,0 +1,39 @@
+{{> header }}
+
+<main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Login Page</h1>
+          
+        </div>
+      </div>
+
+
+<div class="container">
+  <form method="POST" action="/login">
+      <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" class="form-control" placeholder="Username">   
+      </div>
+
+      <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" class="form-control" placeholder="Password">   
+      </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+      
+
+    </main>
+
+    <footer class="container">
+      <p>&copy; Company 2017-2018</p>
+    </footer>
+
+   
+  </body>
+</html>
