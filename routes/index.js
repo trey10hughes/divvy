@@ -62,6 +62,8 @@ router.post('/register', function(req, res, next) {
 			errors: errors
 		});
 	} else {
+		const firstName= req.body.firstName;
+		const lastName= req.body.lastName;
 		const username = req.body.username;
 		const email = req.body.email;
 		const password = req.body.password;
@@ -70,7 +72,7 @@ router.post('/register', function(req, res, next) {
 
 		bcrypt.hash(password, saltRounds, function(err, hash) {
 
-			db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hash], function (error, results, fields) {
+			db.query('INSERT INTO users (username, email, first_name, last_name, password) VALUES (?, ?, ?, ?, ?)', [username, email, firstName, lastName, hash], function (error, results, fields) {
 				if (error) throw error;
 
 				db.query('SELECT LAST_INSERT_ID() as user_id', function(error, results, fields) {
