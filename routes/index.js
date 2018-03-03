@@ -15,7 +15,19 @@ router.get('/', function(req, res) {
 });
 
 router.get('/profile', authenticationMiddleware(), function(req, res) {
-	res.render('profile', { title: 'Profile' });
+
+	console.log("CURRENT USER: " + req.session.passport.user.user_id)
+
+	const db = require('../db.js')
+	//runs a query to return user info based on the session ID
+	db.query('SELECT * FROM users WHERE id = ' + req.session.passport.user.user_id, function(error, results, fields) {
+		console.log("RESULTS: " + JSON.stringify(results));
+		var data = results[0];
+		res.render('profile', { title: 'Profile', 'user': data });
+	});
+
+	
+	
 });
 
 router.get('/login', function(req, res) {
