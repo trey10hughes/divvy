@@ -10,7 +10,23 @@ const saltRounds = 10;
 /* GET home page. */
 router.get('/', function(req, res) {
 	console.log(req.user);
-	console.log(req.isAuthenticated());
+	console.log(req.isAuthenticated()); //checks to see if user is logged in, returns true if they are
+	//if the user is logged in...
+	//grab the user's preferences from the database and run an ajax call for each one, saving the results as objects called keyword1Data,and so on.
+	//also save the keywords from the database to an object called keywords, as we'll need to pass them through to handlebars again to create the buttons since we're rendering the page from a different route.
+
+	//use this res.render to render the home page, passing in the keywords to be used for the buttons, as well as the search results for when each button is pressed
+	//res.render('home', {
+	//	title: 'Home',
+	//	keywords: keywords
+	//	keyword1Data: keyword1Data,
+	//	keyword2Data: keyword2Data,
+	//	keyword3Data: keyword3Data,
+	// 	keyword4Data: keyword4Data,
+	//	keyword5Data: keyword5Data,
+	//});
+
+
 	res.render('home', { title: 'Home' });
 });
 
@@ -48,7 +64,7 @@ router.post('/addPreferences', function (req, res, next){
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		console.log("RESULTS: " + JSON.stringify(results));
 		var data = results[0];
-		res.render('home',  {'keywords': data });
+		res.render('home',  {keywords: data });
 	});
 
 });
