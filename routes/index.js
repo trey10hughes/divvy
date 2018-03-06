@@ -22,7 +22,11 @@ router.get('/profile', authenticationMiddleware(), function(req, res) {
 	//runs a query to return user info based on the session ID
 	db.query('SELECT * FROM users WHERE id = ' + req.session.passport.user.user_id, function(error, results, fields) {
 		console.log("RESULTS: " + JSON.stringify(results));
+<<<<<<< HEAD
 		var data = results;
+=======
+		var data = results[0];
+>>>>>>> b27e6931069550dea6dea1392094a50c744a757b
 		res.render('profile', { title: 'Profile', 'user': data });
 	});
 	
