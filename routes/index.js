@@ -22,13 +22,15 @@ router.get('/profile', authenticationMiddleware(), function(req, res) {
 	//runs a query to return user info based on the session ID
 	db.query('SELECT * FROM users WHERE id = ' + req.session.passport.user.user_id, function(error, results, fields) {
 		console.log("RESULTS: " + JSON.stringify(results));
-		var data = results[0];
-		res.render('profile', { title: 'Profile', 'user': data });
+		var data = results;
+		res.render('profile', { title: 'Profile', 'user': results });
 	});
-
-	
 	
 });
+
+// router.post('/addPreferences', function (req, res, next){
+	
+// });
 
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'Login' });
