@@ -28,9 +28,19 @@ router.get('/profile', authenticationMiddleware(), function(req, res) {
 	
 });
 
-// router.post('/addPreferences', function (req, res, next){
-	
-// });
+router.post('/addPreferences', function (req, res, next){
+
+	keywords = {
+		keyword1 : req.body.keyword1,
+		keyword2 : req.body.keyword2,
+		keyword3 : req.body.keyword3,
+		keyword4 : req.body.keyword4,
+		keyword5 : req.body.keyword5
+	};
+
+	res.render('home', {'keywords': keywords} );
+
+});
 
 router.get('/login', function(req, res) {
 	res.render('login', { title: 'Login' });
