@@ -43,9 +43,13 @@ router.post('/addPreferences', function (req, res, next){
 
 	db.query('INSERT INTO userInfo (users_id, keyword_1, keyword_2, keyword_3, keyword_4, keyword_5) VALUES (?, ?, ?, ?, ?, ?)', [req.session.passport.user.user_id, keywords.keyword1, keywords.keyword2, keywords.keyword3, keywords.keyword4, keywords.keyword5], function (error, results, fields) {
 		if (error) throw error;
-	})
-
-	res.render('home', {'keywords': keywords} );
+	});
+	//another query to pull the data from the database to be pushed to the home page (for consistency).
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		console.log("RESULTS: " + JSON.stringify(results));
+		var data = results[0];
+		res.render('home',  {'keywords': data });
+	});
 
 });
 
@@ -113,7 +117,7 @@ router.post('/register', function(req, res, next) {
 
 					console.log(results[0]);
 					req.login(user_id, function(err) {
-						res.redirect('/');
+						res.redirect('/profile');
 					});		
 				});
 
