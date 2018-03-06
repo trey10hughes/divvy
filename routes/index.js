@@ -23,7 +23,7 @@ router.get('/profile', authenticationMiddleware(), function(req, res) {
 	db.query('SELECT * FROM users WHERE id = ' + req.session.passport.user.user_id, function(error, results, fields) {
 		console.log("RESULTS: " + JSON.stringify(results));
 		var data = results;
-		res.render('profile', { title: 'Profile', 'user': results });
+		res.render('profile', { title: 'Profile', 'user': data });
 	});
 	
 });
@@ -37,6 +37,8 @@ router.post('/addPreferences', function (req, res, next){
 		keyword4 : req.body.keyword4,
 		keyword5 : req.body.keyword5
 	};
+
+	//add these preferences to the database
 
 	res.render('home', {'keywords': keywords} );
 
