@@ -39,6 +39,11 @@ router.post('/addPreferences', function (req, res, next){
 	};
 
 	//add these preferences to the database
+	const db = require('../db.js')
+
+	db.query('INSERT INTO userInfo (users_id, keyword_1, keyword_2, keyword_3, keyword_4, keyword_5) VALUES (?, ?, ?, ?, ?, ?)', [req.session.passport.user.user_id, keywords.keyword1, keywords.keyword2, keywords.keyword3, keywords.keyword4, keywords.keyword5], function (error, results, fields) {
+		if (error) throw error;
+	})
 
 	res.render('home', {'keywords': keywords} );
 
