@@ -18,12 +18,12 @@ router.get('/', function(req, res) {
 	//use this res.render to render the home page, passing in the keywords to be used for the buttons, as well as the search results for when each button is pressed
 	//res.render('home', {
 	//	title: 'Home',
-	//	keywords: keywords
+	//	keywords: keywords,
 	//	keyword1Data: keyword1Data,
 	//	keyword2Data: keyword2Data,
 	//	keyword3Data: keyword3Data,
 	// 	keyword4Data: keyword4Data,
-	//	keyword5Data: keyword5Data,
+	//	keyword5Data: keyword5Data
 	//});
 
 
