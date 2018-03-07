@@ -101,19 +101,85 @@ router.get('/logout', function(req, res) {
 
 router.post('/keyword1', function (req, res, next) {
 	console.log("keyword1 route hit");
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		var keyword = results[0].keyword_1;
+
+		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+			newsapi.v2.topHeadlines({
+				q: keyword
+			}).then(response => {
+				console.log(response);
+			});
+		// res.render('home', { searchResults: data });
+	}); 
 });
 
 router.post('/keyword2', function (req, res, next) {
 	console.log("keyword2 route hit");
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		var keyword = results[0].keyword_2;
+
+		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+		newsapi.v2.topHeadlines({
+			q: keyword
+		}).then(response => {
+			console.log(response);
+		});
+		// res.render('home', { searchResults: data });
+	}); 
 });
 router.post('/keyword3', function (req, res, next) {
 	console.log("keyword3 route hit");
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		var keyword = results[0].keyword_3;
+
+		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+		newsapi.v2.topHeadlines({
+			q: keyword
+		}).then(response => {
+			console.log(response);
+		});
+		// res.render('home', { searchResults: data });
+	}); 
 });
 router.post('/keyword4', function (req, res, next) {
 	console.log("keyword4 route hit");
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		var keyword = results[0].keyword_4;
+
+		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+		newsapi.v2.topHeadlines({
+			q: keyword
+		}).then(response => {
+			console.log(response);
+		});
+		// res.render('home', { searchResults: data });
+	}); 
 });
 router.post('/keyword5', function (req, res, next) {
 	console.log("keyword5 route hit");
+
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+		var keyword = results[0].keyword_5;
+
+		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+		newsapi.v2.topHeadlines({
+			q: keyword
+		}).then(response => {
+			console.log(response);
+		});
+		// res.render('home', { searchResults: data });
+	}); 
 });
 
 router.get('/register', function(req, res, next) {
