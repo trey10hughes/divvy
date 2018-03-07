@@ -21,16 +21,23 @@
 <center>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="col-md-8 bootstrap snippets">
-<div class="panel">
-  <div class="panel-body">
-    
-    <button type="button" class="btn btn-outline-primary">{{keywords.keyword_1}}</button>
-    <button type="button" class="btn btn-outline-primary">{{keywords.keyword_2}}</button>
-    <button type="button" class="btn btn-outline-primary">{{keywords.keyword_3}}</button>
-    <button type="button" class="btn btn-outline-primary">{{keywords.keyword_4}}</button>
-    <button type="button" class="btn btn-outline-primary">{{keywords.keyword_5}}</button>
+<div class="row">
+    <form method="POST" action="/keyword1" class='col-md-2'>  
+      <button type="submit" class="btn btn-primary">{{keywords.keyword_1}}</button>
+    </form>
+    <form method="POST" action="/keyword2" class='col-md-2'>
+      <button type="submit" class="btn btn-primary">{{keywords.keyword_2}}</button>
+    </form>
+    <form method="POST" action="/keyword3" class='col-md-2'>
+      <button type="submit" class="btn btn-primary">{{keywords.keyword_3}}</button>
+    </form>
+    <form method="POST" action="/keyword4" class='col-md-2'>
+      <button type="submit" class="btn btn-primary">{{keywords.keyword_4}}</button>
+    </form>
+    <form method="POST" action="/keyword5" class='col-md-2'>
+      <button type="submit" class="btn btn-primary">{{keywords.keyword_5}}</button>
+    </form>
 
-  </div>
   </div>
 <div class="panel">
     <div class="panel-body">

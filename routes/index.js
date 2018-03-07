@@ -99,6 +99,22 @@ router.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
+router.post('/keyword1', function (req, res, next) {
+	console.log("keyword1 route hit");
+});
+
+router.post('/keyword2', function (req, res, next) {
+	console.log("keyword2 route hit");
+});
+router.post('/keyword3', function (req, res, next) {
+	console.log("keyword3 route hit");
+});
+router.post('/keyword4', function (req, res, next) {
+	console.log("keyword4 route hit");
+});
+router.post('/keyword5', function (req, res, next) {
+	console.log("keyword5 route hit");
+});
 
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Registration' });
