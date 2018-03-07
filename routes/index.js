@@ -34,12 +34,12 @@ router.get('/', function(req, res) {
 	//use this res.render to render the home page, passing in the keywords to be used for the buttons, as well as the search results for when each button is pressed
 	//res.render('home', {
 	//	title: 'Home',
-	//	keywords: keywords
+	//	keywords: keywords,
 	//	keyword1Data: keyword1Data,
 	//	keyword2Data: keyword2Data,
 	//	keyword3Data: keyword3Data,
 	// 	keyword4Data: keyword4Data,
-	//	keyword5Data: keyword5Data,
+	//	keyword5Data: keyword5Data
 	//});
 	res.render('home', { title: 'Home' });
 	}
@@ -99,6 +99,22 @@ router.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
+router.post('/keyword1', function (req, res, next) {
+	console.log("keyword1 route hit");
+});
+
+router.post('/keyword2', function (req, res, next) {
+	console.log("keyword2 route hit");
+});
+router.post('/keyword3', function (req, res, next) {
+	console.log("keyword3 route hit");
+});
+router.post('/keyword4', function (req, res, next) {
+	console.log("keyword4 route hit");
+});
+router.post('/keyword5', function (req, res, next) {
+	console.log("keyword5 route hit");
+});
 
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Registration' });
