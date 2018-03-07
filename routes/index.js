@@ -104,6 +104,13 @@ router.post('/keyword1', function (req, res, next) {
 	const db = require('../db.js');
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		var keyword = results[0].keyword_1;
+		var userKeywords = {
+			keyword_1: results[0].keyword_1,
+			keyword_2: results[0].keyword_2,
+			keyword_3: results[0].keyword_3,
+			keyword_4: results[0].keyword_4,
+			keyword_5: results[0].keyword_5
+		};
 
 		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
 
@@ -111,8 +118,17 @@ router.post('/keyword1', function (req, res, next) {
 				q: keyword
 			}).then(response => {
 				console.log(response);
+				//save the response to an object called data
+				var data = {
+					newsResults: response,
+					userKeywords: userKeywords
+				};
+				console.log("DATA:" + JSON.stringify(data));
+				//also save all of the user's keywords from the database to this object
+				//res.render the homepage with this data
+				res.render('home', { data: data });
 			});
-		// res.render('home', { searchResults: data });
+		
 	}); 
 });
 
