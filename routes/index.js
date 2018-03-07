@@ -1,4 +1,5 @@
 var express = require('express');
+const NewsAPI = require('newsapi');
 var router = express.Router();
 
 var expressValidator = require('express-validator');
@@ -10,11 +11,26 @@ const saltRounds = 10;
 /* GET home page. */
 router.get('/', function(req, res) {
 	console.log(req.user);
-	console.log(req.isAuthenticated()); //checks to see if user is logged in, returns true if they are
-	//if the user is logged in...
-	//grab the user's preferences from the database and run an ajax call for each one, saving the results as objects called keyword1Data,and so on.
-	//also save the keywords from the database to an object called keywords, as we'll need to pass them through to handlebars again to create the buttons since we're rendering the page from a different route.
+	console.log(req.isAuthenticated()); 
+	if(req.isAuthenticated()) {
+	const db = require('../db.js');
+	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+	var data = results[0];
+	var keywordsArray = [results[0].keyword_1, results[0].keyword_2, results[0].keyword_3, results[0].keyword_4, results[0].keyword_5];
+	var newsArray = [];
 
+	for (var i = 0; i < keywordsArray.length; i++) {
+	const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+	newsapi.v2.topHeadlines({
+		q: keywordsArray[i]
+	}).then(response => {
+		newsArray.push(response);
+	});
+	}
+	console.log(newsArray)
+	res.render('home',  {keywords: data });
+	}); 
+	} else {
 	//use this res.render to render the home page, passing in the keywords to be used for the buttons, as well as the search results for when each button is pressed
 	//res.render('home', {
 	//	title: 'Home',
@@ -25,9 +41,8 @@ router.get('/', function(req, res) {
 	// 	keyword4Data: keyword4Data,
 	//	keyword5Data: keyword5Data
 	//});
-
-
 	res.render('home', { title: 'Home' });
+	}
 });
 
 router.get('/profile', authenticationMiddleware(), function(req, res) {
@@ -62,7 +77,7 @@ router.post('/addPreferences', function (req, res, next){
 	});
 	//another query to pull the data from the database to be pushed to the home page (for consistency).
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
-		console.log("RESULTS: " + JSON.stringify(results));
+		console.log("RESULTS: Pref: " + JSON.stringify(results));
 		var data = results[0];
 		res.render('home',  {keywords: data });
 	});
