@@ -14,22 +14,34 @@ router.get('/', function(req, res) {
 	console.log(req.isAuthenticated()); 
 	if(req.isAuthenticated()) {
 	const db = require('../db.js');
-	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
-	var data = results[0];
-	var keywordsArray = [results[0].keyword_1, results[0].keyword_2, results[0].keyword_3, results[0].keyword_4, results[0].keyword_5];
-	var newsArray = [];
+		db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
+			var keyword = results[0].keyword_1;
+			var userKeywords = {
+				keyword_1: results[0].keyword_1,
+				keyword_2: results[0].keyword_2,
+				keyword_3: results[0].keyword_3,
+				keyword_4: results[0].keyword_4,
+				keyword_5: results[0].keyword_5
+			};
 
-	for (var i = 0; i < keywordsArray.length; i++) {
-	const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
-	newsapi.v2.topHeadlines({
-		q: keywordsArray[i]
-	}).then(response => {
-		newsArray.push(response);
-	});
-	}
-	console.log(newsArray)
-	res.render('home',  {keywords: data });
-	}); 
+			const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
+
+			newsapi.v2.topHeadlines({
+				q: keyword
+			}).then(response => {
+				console.log(response);
+				//save the response to an object called data
+				var data = {
+					newsResults: response,
+					userKeywords: userKeywords
+				};
+				console.log("DATA:" + JSON.stringify(data));
+				//also save all of the user's keywords from the database to this object
+				//res.render the homepage with this data
+				res.render('home', { data: data });
+			});
+
+		});
 	} else {
 	//use this res.render to render the home page, passing in the keywords to be used for the buttons, as well as the search results for when each button is pressed
 	//res.render('home', {
@@ -41,7 +53,7 @@ router.get('/', function(req, res) {
 	// 	keyword4Data: keyword4Data,
 	//	keyword5Data: keyword5Data
 	//});
-	res.render('home', { title: 'Home' });
+		res.render('login', { title: 'Login' });
 	}
 });
 
@@ -79,7 +91,7 @@ router.post('/addPreferences', function (req, res, next){
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		console.log("RESULTS: Pref: " + JSON.stringify(results));
 		var data = results[0];
-		res.render('home',  {keywords: data });
+		res.render('profile', { title: 'Preferences added' });
 	});
 
 });
@@ -138,14 +150,30 @@ router.post('/keyword2', function (req, res, next) {
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		var keyword = results[0].keyword_2;
 
+		var userKeywords = {
+			keyword_1: results[0].keyword_1,
+			keyword_2: results[0].keyword_2,
+			keyword_3: results[0].keyword_3,
+			keyword_4: results[0].keyword_4,
+			keyword_5: results[0].keyword_5
+		};
+
 		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
 
-		newsapi.v2.topHeadlines({
-			q: keyword
-		}).then(response => {
-			console.log(response);
-		});
-		// res.render('home', { searchResults: data });
+			newsapi.v2.topHeadlines({
+				q: keyword
+			}).then(response => {
+				console.log(response);
+				//save the response to an object called data
+				var data = {
+					newsResults: response,
+					userKeywords: userKeywords
+				};
+				console.log("DATA:" + JSON.stringify(data));
+				//also save all of the user's keywords from the database to this object
+				//res.render the homepage with this data
+				res.render('home', { data: data });
+			});
 	}); 
 });
 router.post('/keyword3', function (req, res, next) {
@@ -154,14 +182,30 @@ router.post('/keyword3', function (req, res, next) {
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		var keyword = results[0].keyword_3;
 
+		var userKeywords = {
+			keyword_1: results[0].keyword_1,
+			keyword_2: results[0].keyword_2,
+			keyword_3: results[0].keyword_3,
+			keyword_4: results[0].keyword_4,
+			keyword_5: results[0].keyword_5
+		};
+
 		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
 
 		newsapi.v2.topHeadlines({
 			q: keyword
 		}).then(response => {
 			console.log(response);
+			//save the response to an object called data
+			var data = {
+				newsResults: response,
+				userKeywords: userKeywords
+			};
+			console.log("DATA:" + JSON.stringify(data));
+			//also save all of the user's keywords from the database to this object
+			//res.render the homepage with this data
+			res.render('home', { data: data });
 		});
-		// res.render('home', { searchResults: data });
 	}); 
 });
 router.post('/keyword4', function (req, res, next) {
@@ -170,14 +214,30 @@ router.post('/keyword4', function (req, res, next) {
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		var keyword = results[0].keyword_4;
 
+		var userKeywords = {
+			keyword_1: results[0].keyword_1,
+			keyword_2: results[0].keyword_2,
+			keyword_3: results[0].keyword_3,
+			keyword_4: results[0].keyword_4,
+			keyword_5: results[0].keyword_5
+		};
+
 		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
 
 		newsapi.v2.topHeadlines({
 			q: keyword
 		}).then(response => {
 			console.log(response);
+			//save the response to an object called data
+			var data = {
+				newsResults: response,
+				userKeywords: userKeywords
+			};
+			console.log("DATA:" + JSON.stringify(data));
+			//also save all of the user's keywords from the database to this object
+			//res.render the homepage with this data
+			res.render('home', { data: data });
 		});
-		// res.render('home', { searchResults: data });
 	}); 
 });
 router.post('/keyword5', function (req, res, next) {
@@ -187,14 +247,30 @@ router.post('/keyword5', function (req, res, next) {
 	db.query('SELECT * FROM userInfo WHERE users_id = ' + req.session.passport.user.user_id, function (error, results, fields) {
 		var keyword = results[0].keyword_5;
 
+		var userKeywords = {
+			keyword_1: results[0].keyword_1,
+			keyword_2: results[0].keyword_2,
+			keyword_3: results[0].keyword_3,
+			keyword_4: results[0].keyword_4,
+			keyword_5: results[0].keyword_5
+		};
+
 		const newsapi = new NewsAPI('87de89bb45824f74b8482d3687a798da')
 
 		newsapi.v2.topHeadlines({
 			q: keyword
 		}).then(response => {
 			console.log(response);
+			//save the response to an object called data
+			var data = {
+				newsResults: response,
+				userKeywords: userKeywords
+			};
+			console.log("DATA:" + JSON.stringify(data));
+			//also save all of the user's keywords from the database to this object
+			//res.render the homepage with this data
+			res.render('home', { data: data });
 		});
-		// res.render('home', { searchResults: data });
 	}); 
 });
 
