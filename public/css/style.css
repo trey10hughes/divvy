@@ -1,4 +1,9 @@
 body {
   margin: 0; }
 
+.navbar-brand {
+	height:100px;
+	width:200px;
+}
+
 /*# sourceMappingURL=style.css.map*/
