@@ -2,8 +2,13 @@ body {
   margin: 0; }
 
 .navbar-brand {
-	height:100px;
-	width:200px;
+	width:125px;
+	height:120px;
+	padding-top: 35px;
+}  
+
+.navbar {
+	height: 60px;
 }
 
 /*# sourceMappingURL=style.css.map*/
